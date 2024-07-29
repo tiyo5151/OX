@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './index.module.css';
-import { useGame } from '../hooks/useGame';
+import useGame from '../hooks/useGame';
+import Board from '../component/board';
+import Imformation from '../component/imformation';
 
 const Home: React.FC = () => {
   const {
@@ -10,12 +12,8 @@ const Home: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.board}>
-        kokoniboard
-      </div>
-      <div className={styles.imformation}>
-        kokoniimformation
-      </div>
+      <Board/>
+      <Imformation/>
     </div>
   );
 };

@@ -1,6 +1,7 @@
+/* stylelint-disable prettier/prettier */
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   height: 100vh;
@@ -9,7 +10,20 @@
 }
 
 .board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 60%;
   height: 60%;
   background-color: aquamarine;
+}
+
+.imformation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  height: 60%;
+  background-color: burlywood;
 }
