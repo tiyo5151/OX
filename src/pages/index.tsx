@@ -7,12 +7,12 @@ import Imformation from '../component/imformation';
 const Home: React.FC = () => {
   const {
     board,
-    setpoint,
+    setOX,
   } = useGame();
 
   return (
     <div className={styles.container}>
-      <Board/>
+      <Board board={board} setOX={setOX} />
       <Imformation/>
     </div>
   );
