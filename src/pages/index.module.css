@@ -11,10 +11,11 @@
 
 .board {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  width: 60%;
-  height: 60%;
+  width: 900px;
+  height: 900px;
   background-color: aquamarine;
 }
 
@@ -37,10 +38,11 @@
 
 .cell {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: 300px;
   font-size: 70px;
   cursor: pointer;
   background-color: #f0f0f0;

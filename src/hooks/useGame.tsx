@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const useGame = () => {
-  const [board,setBoard] = useState([
+  const [board, setBoard] = useState([
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0],
@@ -10,10 +10,10 @@ const useGame = () => {
   const setOX = (x: number, y: number) => {
     console.log(x, y);
     if (board[y][x] !== 0) {
-      return
+      return;
     }
     if (turn === 1) {
-      board[x][y] = 1;
+      board[y][x] = 1;
       setTurn(2);
     }
     if (turn === 2) {
@@ -27,6 +27,6 @@ const useGame = () => {
     setOX,
     turn,
   };
-}
+};
 
 export default useGame;
