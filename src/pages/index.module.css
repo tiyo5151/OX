@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
 .container {
   display: flex;
   flex-direction: row;
@@ -36,6 +38,7 @@
 .container::before {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   content: '';
   background: rgb(255 255 255 / 10%);
   filter: blur(20px);
@@ -54,13 +57,13 @@
 }
 
 .board {
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  width: 900px;
-  height: 900px;
-  background-color: aquamarine;
+  width: 600px;
+  height: 600px;
 }
 
 .imformation {
@@ -84,10 +87,14 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  width: 300px;
-  height: 300px;
-  font-size: 70px;
-  cursor: pointer;
-  background-color: #f0f0f0;
-  border: 1px solid #000;
+  width: 200px;
+  height: 200px;
+  font-family: 'Comic Sans MS', sans-serif;
+  font-size: 100px;
+  color: #ff0;
+  border: 3px solid #0000cd;
+}
+
+.cell:hover {
+  border: #ffd700 3px solid;
 }
