@@ -1,19 +1,16 @@
 import React from 'react';
-import styles from './index.module.css';
-import useGame from '../hooks/useGame';
 import Board from '../component/board';
-import Imformation from '../component/imformation';
+import Information from '../component/information';
+import useGame from '../hooks/useGame';
+import styles from './index.module.css';
 
 const Home: React.FC = () => {
-  const {
-    board,
-    setOX,
-  } = useGame();
+  const { board, setOX, winner } = useGame();
 
   return (
     <div className={styles.container}>
       <Board board={board} setOX={setOX} />
-      <Imformation/>
+      <Information winner={winner} />
     </div>
   );
 };

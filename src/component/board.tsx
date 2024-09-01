@@ -1,26 +1,23 @@
-import styles from "../pages/index.module.css";
+import styles from '../pages/index.module.css';
 
-interface Props {
-  board: number[][];
-  setOX: (y: number, x: number) => void;
-}
-
-const Board: React.FC<Props> = (
-  { board, setOX }
-) => {
-  return (
-    <div className={styles.board}>
-      {board.map((row:number[], y:number) => (
-        <div key={y} className={styles.row}>
-          {row.map((cell:number, x:number) => (
-            <div key={x} className={styles.cell} onClick={() => setOX(x,y)}>
-              {board[y][x] === 1 ? "○" : board[y][x] === 2 ? "×" : ""}
-            </div>
-          ))}
-    </div>
-  ))};
-  </div>
-  );
+type BoardProps = {
+  board: (number | null)[][];
+  setOX: (x: number, y: number) => void;
 };
 
+const Board: React.FC<BoardProps> = ({ board, setOX }) => {
+  return (
+    <div className={styles.board}>
+      {board.map((row, y) => (
+        <div key={y} className={styles.row}>
+          {row.map((cell, x) => (
+            <div key={x} className={styles.cell} onClick={() => setOX(x, y)}>
+              {cell === 1 ? '○' : cell === 2 ? '×' : ''}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
 export default Board;
