@@ -3,9 +3,12 @@ import styles from '../pages/index.module.css';
 interface Props {
   winner: number | null;
   turn: number;
+  jumpTo: (step: number) => void;
+  step: number;
+  history: { board: (number | null)[][]; turn: number }[];
 }
 
-const Information: React.FC<Props> = ({ winner, turn }) => {
+const Information: React.FC<Props> = ({ winner, turn, jumpTo, step, history }) => {
   return (
     <div className={styles.information}>
       {winner === null ? (
@@ -16,6 +19,18 @@ const Information: React.FC<Props> = ({ winner, turn }) => {
         <h1>{winner === 1 ? '○' : '×'}の勝ち！</h1>
       )}
       <h1>NEXT:{turn === 1 ? '○' : '×'}</h1>
+      <div className={styles.history}>
+        <h3>履歴</h3>
+        <ul>
+          {history.map((_, step) => (
+            <li key={step}>
+              <button onClick={() => jumpTo(step)}>
+                {step === 0 ? 'ゲーム開始時' : `${step}手目へ戻る`}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

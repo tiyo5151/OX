@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { lines } from '../constants';
-import type { History, Winner } from '../types/useGame';
+import type { BoardState, History, Winner } from '../types/useGame';
 
 const useGame = () => {
   // const [board, setBoard] = useState<(number | null)[][]>([
@@ -25,7 +25,7 @@ const useGame = () => {
   const currentTurn = history[currentStep].turn;
   const [winner, setWinner] = useState<Winner>(null);
 
-  const checkWinner = (newBoard: (number | null)[][]) => {
+  const checkWinner = useCallback((newBoard: BoardState) => {
     for (const line of lines) {
       const [a, b, c] = line;
       if (
@@ -33,40 +33,55 @@ const useGame = () => {
         newBoard[a.y][a.x] === newBoard[b.y][b.x] &&
         newBoard[a.y][a.x] === newBoard[c.y][c.x]
       ) {
-        return setWinner(newBoard[a.y][a.x]);
-      }
-      if (newBoard.every((row) => row.every((cell) => cell !== null))) {
-        return setWinner(3);
+        return newBoard[a.y][a.x];
       }
     }
+    if (newBoard.every((row) => row.every((cell) => cell !== null))) {
+      return 3; // Draw
+    }
+    return null;
+  }, []);
+
+  const setOX = useCallback(
+    (x: number, y: number) => {
+      if (winner !== null || currentBoard[y][x] !== null) {
+        return;
+      }
+
+      const newBoard = currentBoard.map((row) => [...row]);
+      newBoard[y][x] = currentTurn;
+
+      const newWinner = checkWinner(newBoard);
+      const newTurn = currentTurn === 1 ? 2 : 1;
+
+      const newHistory = history.slice(0, currentStep + 1).concat({
+        board: newBoard,
+        turn: newTurn,
+      });
+
+      setHistory(newHistory);
+      setCurrentStep(newHistory.length - 1);
+
+      if (newWinner !== null) {
+        setWinner(newWinner);
+      }
+    },
+    [currentBoard, currentTurn, currentStep, history, winner, checkWinner],
+  );
+
+  const jumpTo = (step: number) => {
+    setCurrentStep(step);
+    setWinner(checkWinner(history[step].board));
   };
 
-  const setOX = (x: number, y: number) => {
-    console.log(x, y);
-    const newBoard = structuredClone(currentBoard);
-    const newTurn = structuredClone(currentTurn);
-    if (newBoard[y][x] !== null || winner !== null) {
-      return;
-    }
-    //1: ○, 2: ×
-    if (newTurn === 1) {
-      newBoard[y][x] = 1;
-    }
-    if (newTurn === 2) {
-      newBoard[y][x] = 2;
-    }
-    checkWinner(newBoard);
-    setBoard(newBoard);
-    setTurn(turn === 1 ? 2 : 1);
-  };
-
-  console.log(winner);
-  console.log(newBoard);
   return {
-    board,
+    board: currentBoard,
     setOX,
-    turn,
+    turn: currentTurn,
     winner,
+    history,
+    currentStep,
+    jumpTo,
   };
 };
 
