@@ -75,9 +75,9 @@ const useGame = () => {
   };
 
   return {
-    board: currentBoard,
+    currentBoard,
     setOX,
-    turn: currentTurn,
+    currentTurn,
     winner,
     history,
     currentStep,

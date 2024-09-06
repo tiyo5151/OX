@@ -8,30 +8,30 @@ interface Props {
   history: { board: (number | null)[][]; turn: number }[];
 }
 
-const Information: React.FC<Props> = ({ winner, turn, jumpTo, step, history }) => {
+const Information: React.FC<Props> = ({ winner, turn, jumpTo, history }) => {
   return (
-    <div className={styles.information}>
-      {winner === null ? (
-        <h1>対戦中...</h1>
-      ) : winner === 3 ? (
-        <h1>引き分け！</h1>
-      ) : (
-        <h1>{winner === 1 ? '○' : '×'}の勝ち！</h1>
-      )}
-      <h1>NEXT:{turn === 1 ? '○' : '×'}</h1>
-      <div className={styles.history}>
-        <h3>履歴</h3>
-        <ul>
-          {history.map((_, step) => (
-            <li key={step}>
-              <button onClick={() => jumpTo(step)}>
-                {step === 0 ? 'ゲーム開始時' : `${step}手目へ戻る`}
-              </button>
-            </li>
-          ))}
-        </ul>
+    <>
+      <div className={styles.information}>
+        {winner === null ? (
+          <h1>対戦中...</h1>
+        ) : winner === 3 ? (
+          <h1>引き分け！</h1>
+        ) : (
+          <h1>{winner === 1 ? '○' : '×'}の勝ち！</h1>
+        )}
+        <h1>NEXT:{turn === 1 ? '○' : '×'}</h1>
+        <h1>履歴</h1>
       </div>
-    </div>
+      <div className={styles.history}>
+        {history.map((_, step) => (
+          <div key={step}>
+            <button onClick={() => jumpTo(step)} className={styles.historyElement}>
+              <span>{step === 0 ? 'ゲーム開始時' : `${step}手目へ戻る`}</span>
+            </button>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
