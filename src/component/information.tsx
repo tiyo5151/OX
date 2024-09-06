@@ -20,7 +20,6 @@ const Information: React.FC<Props> = ({ winner, turn, jumpTo, history }) => {
           <h1>{winner === 1 ? '○' : '×'}の勝ち！</h1>
         )}
         <h1>NEXT:{turn === 1 ? '○' : '×'}</h1>
-        <h1>履歴</h1>
       </div>
       <div className={styles.history}>
         {history.map((_, step) => (
